@@ -1,5 +1,5 @@
 name: CI/CD Pipeline
-#fllfff
+
 on:
   push:
     branches:
@@ -13,7 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-	token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Configure git user
         run: |
           git config user.name "github-actions"
