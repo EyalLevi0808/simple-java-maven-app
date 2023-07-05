@@ -39,16 +39,20 @@ jobs:
       - name: Run Tests
         run: mvn test
 
-      - name: Run Docker image
-        run: |
-          docker run -d --name test_container my-app:1.0.${{ github.run_number }}
-          sleep 10
-          if docker ps | grep test_container; then
-            echo "Container started successfully"
-          else
-            echo "Failed to start container" && exit 1
-          fi
-          docker rm -f test_container
+	- name: Run Docker image
+	  run: |
+    		docker run -d --name test_container my-app:1.0.${{ github.run_number }}
+    		sleep 10
+    		echo "=== DOCKER PS OUTPUT ==="
+    		docker ps -a
+    		echo "=== TEST_CONTAINER LOGS ==="
+    		docker logs test_container
+    		if docker ps | grep test_container; then
+     		 	echo "Container started successfully"
+    		else
+      			echo "Failed to start container" && exit 1
+    		fi
+    		docker rm -f test_container
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
