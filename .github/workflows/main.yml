@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          token: ${{ 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 }}
 
       - name: Configure git user
         run: |
