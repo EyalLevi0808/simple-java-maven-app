@@ -57,3 +57,12 @@ jobs:
         run: |
           docker tag my-app:1.0.${{ github.run_number }} ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:1.0.${{ github.run_number }}
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/my-app:1.0.${{ github.run_number }}
+
+      - name: Create PR to master (deployment) branch
+        if: success()
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "master"
+          pr_title: "CI updates"
+          pr_body: "Updates from CI to deploy"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
